@@ -1,37 +1,22 @@
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    // if (req.query.productId || (req.body && req.body.productId)) {
-    //     context.res = {
-    //         // status: 200, /* Defaults to 200 */
-    //         body: "製品名は" + "Starfruit Explosionです。"
-    //     };
-    // }
-    // else {
-    //     context.res = {
-    //         status: 400,
-    //         body: "Please pass a name on the query string or in the request body"
-    //     };
-    // }
-
     var products = context.bindings.inputDocument;
 
-    context.log(products[0]);
-
-    if(products[0] === undefined){
+    if (products[0] === undefined) {
         context.res = {
             status: 400,
             body: "Productがありません。"
         };
     }
-    else{
+    else {
         context.res = {
             status: 200,
             body: JSON.stringify({
-                "productId":products[0].productId,
-                "productName":products[0].productName,
-                "productDescription":products[0].productDescription,
-                "timestamp":products[0].timestamp
+                "productId": products[0].productId,
+                "productName": products[0].productName,
+                "productDescription": products[0].productDescription,
+                "timestamp": products[0].timestamp
             })
         };
     }
