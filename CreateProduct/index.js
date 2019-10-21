@@ -1,8 +1,6 @@
 module.exports = async function (context, req) {
     context.log('Create Function processing a request.');
 
-    // context.registerProduct = req;
-
     if (!req.body) {
         context.res = {
             status: 400,
