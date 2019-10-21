@@ -14,6 +14,15 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "inputDocument",
+      "databaseName": "OrderingDb",
+      "collectionName": "Products",
+      "connectionStringSetting": "ordering_DOCUMENTDB",
+      "sqlQuery": "SELECT * FROM c Where c.productId = {productId}"
     }
   ]
 }
