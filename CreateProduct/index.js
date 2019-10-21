@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
 
     if (productId && productName && productDescription) {
         // 全部揃っているときだけ登録する.
-        context.registerProduct = {
+        context.bindings.registerProduct = {
             productId,
             productName,
             productDescription,
