@@ -9,7 +9,19 @@ module.exports = async function (context, req) {
             body: "Productがありません。"
         };
     }
-    else {
+
+    const { productId } = req.body;
+
+    if (productId && productName && productDescription) {
+        // 全部揃っているときだけ登録する.
+        context.bindings.registerProduct = {
+            productId
+        };
+        context.res = {
+            status: 200,
+            body: 'Success',
+        };
+   } else {
         context.res = {
             status: 200,
             body: JSON.stringify({
