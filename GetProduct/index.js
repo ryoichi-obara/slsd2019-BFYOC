@@ -14,17 +14,14 @@ module.exports = async function (context, req) {
     //     };
     // }
 
-    var product = context.bindings.inputDocument;
-    context.bindings.res = JSON.stringify({
-        id: context.bindings.myQueueItem.name + "-" + context.bindings.myQueueItem.employeeId,
-        name: context.bindings.myQueueItem.name,
-        employeeId: context.bindings.myQueueItem.employeeId,
-        address: context.bindings.myQueueItem.address
-    });
-
-
+    var products = context.bindings.inputDocument;
     context.res = {
-        body: JSON.stringify(product)
+        status: 200,
+        body: JSON.stringify({
+            "productId":products[0].productId,
+            "productName":products[0].productName,
+            "productDescription":products[0].productDescription,
+            "timestamp":products[0].timestamp
+        })
     };
-    // context.done;
 };
