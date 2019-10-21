@@ -1,16 +1,36 @@
 module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+    context.log('Create Function processing a request.');
 
-    if (req.query.name || (req.body && req.body.name)) {
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name)
-        };
-    }
-    else {
+    // context.registerProduct = req;
+
+    if (!req.body) {
         context.res = {
             status: 400,
-            body: "Please pass a name on the query string or in the request body"
+            body: 'productId, productName, productDescription が必須項目です。',
+        };
+        return;
+    }
+
+    const { productId } = req.body;
+    const { productName } = req.body;
+    const { productDescription } = req.body;
+
+    if (productId && productName && productDescription) {
+        // 全部揃っているときだけ登録する.
+        context.registerProduct = {
+            productId,
+            productName,
+            productDescription,
+            timestamp: new Date().toISOString(), // '2019-09-14 21:27:47Z',
+        };
+        context.res = {
+            status: 200,
+            body: 'Success',
+        };
+    } else {
+        context.res = {
+            status: 400,
+            body: 'productId, productName, productDescription が必須項目です。',
         };
     }
 };
