@@ -5,7 +5,7 @@ module.exports = async function (context, req) {
 
     if (products[0] === undefined) {
         context.res = {
-            status: 400,
+            status: 404,
             body: "Productがありません。"
         };
     }
