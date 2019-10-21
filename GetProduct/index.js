@@ -15,13 +15,24 @@ module.exports = async function (context, req) {
     // }
 
     var products = context.bindings.inputDocument;
-    context.res = {
-        status: 200,
-        body: JSON.stringify({
-            "productId":products[0].productId,
-            "productName":products[0].productName,
-            "productDescription":products[0].productDescription,
-            "timestamp":products[0].timestamp
-        })
-    };
+
+    context.log(products[0]);
+
+    if(products[0] === undefined){
+        context.res = {
+            status: 400,
+            body: "Productがありません。"
+        };
+    }
+    else{
+        context.res = {
+            status: 200,
+            body: JSON.stringify({
+                "productId":products[0].productId,
+                "productName":products[0].productName,
+                "productDescription":products[0].productDescription,
+                "timestamp":products[0].timestamp
+            })
+        };
+    }
 };
