@@ -1,35 +1,35 @@
 module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+    context.log('Create Function processing a request.');
 
-    var products = context.bindings.inputDocument;
-
-    if (products[0] === undefined) {
+    if (!req.body) {
         context.res = {
             status: 400,
-            body: "Productがありません。"
+            body: 'productId, productName, productDescription が必須項目です。',
         };
+        return;
     }
 
     const { productId } = req.body;
+    const { productName } = req.body;
+    const { productDescription } = req.body;
 
     if (productId && productName && productDescription) {
         // 全部揃っているときだけ登録する.
         context.bindings.registerProduct = {
-            productId
+            productId,
+            productName,
+            productDescription,
+            timestamp: new Date().toISOString(), // '2019-09-14 21:27:47Z',
         };
         context.res = {
             status: 200,
             body: 'Success',
         };
-   } else {
+    } else {
         context.res = {
-            status: 200,
-            body: JSON.stringify({
-                "productId": products[0].productId,
-                "productName": products[0].productName,
-                "productDescription": products[0].productDescription,
-                "timestamp": products[0].timestamp
-            })
+            status: 400,
+            body: 'productId, productName, productDescription が必須項目です。',
         };
     }
 };
+
